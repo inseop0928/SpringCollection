@@ -1,6 +1,6 @@
 package com.jis.springbootjpa;
 
-import com.jis.springbootjpa.domain.BookRepository;
+import com.jis.springbootjpa.domain.repository.BookRepository;
 import com.jis.springbootjpa.domain.Books;
 import com.jis.springbootjpa.dto.BookRequestDto;
 import org.junit.After;

@@ -1,14 +1,12 @@
 package com.jis.springbootjpa.sevice;
 
-import com.jis.springbootjpa.domain.BookRepository;
+import com.jis.springbootjpa.domain.repository.BookRepository;
 import com.jis.springbootjpa.domain.Books;
 import com.jis.springbootjpa.dto.BookRequestDto;
 import com.jis.springbootjpa.dto.BookResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.awt.print.Book;
 
 @RequiredArgsConstructor//autowired 대신 사용
 @Service

@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Entity//테이블과 매핑
 @NoArgsConstructor//기본생성자 추가
-public class Books {
+public class Books extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
