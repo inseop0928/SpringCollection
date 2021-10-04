@@ -26,7 +26,7 @@ public class HelloBatchConfiguration {
     @Bean
     public Job helloJob(){
         return jobBuilderFactory.get("helloJob")
-                .incrementer(new RunIdIncrementer())
+                .incrementer(new RunIdIncrementer())//job 인스턴스 생성
                 .start(this.helloStep())
                 .build();
     }
