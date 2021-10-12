@@ -9,6 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBatchApplication {
 
     public static void main(String[] args) {
+        for(String str : args){
+            System.out.println("parameters " + str);
+        }
         SpringApplication.run(SpringBatchApplication.class, args);
     }
 

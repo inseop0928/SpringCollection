@@ -6,10 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
@@ -21,6 +18,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @Entity
+@Table(name = "user",indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +30,13 @@ public class User {
     @NotNull
     private String email;
 
+    @Enumerated(value = EnumType.STRING)//String으로 선언하지 않으면 index로 리턴하는데 순서 변경 시 값이 꼬일 수가 있다.
+    private Gender gender;
+
+    @Column(nullable = true, insertable = true)
     private LocalDateTime createdAt;
+
+   @Column(insertable = false)
     private LocalDateTime updatedAt;
 
     public User(String name, String email) {

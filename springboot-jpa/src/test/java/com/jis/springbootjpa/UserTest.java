@@ -1,5 +1,6 @@
 package com.jis.springbootjpa;
 
+import com.jis.springbootjpa.domain.Gender;
 import com.jis.springbootjpa.domain.User;
 import com.jis.springbootjpa.domain.repository.UserRepository;
 import org.assertj.core.util.Lists;
@@ -43,7 +44,7 @@ public class UserTest {
         List<User> users = userRepository.findAllById(Lists.newArrayList(1l,3l,5l));
         users.forEach(System.out::println);
 
-        User user1 = new User(null,"martin","google",null,null);
+        User user1 = new User("martin","google");
         User user2 = User.builder().name("test2").email("test2@gmail.com").build();
         userRepository.saveAll(Lists.newArrayList(user1,user2));
 
@@ -167,4 +168,21 @@ public class UserTest {
         //method 네이밍을으로 지정해서 사용
         userRepository.findFirstByNameOrderByIdDescEmailAsc("test");
     }
+
+    @Test
+    public void enumTest(){
+        //User user = userRepository.findById(1L).orElseThrow();//값이 없으면 에러 발생
+        User user1 = User.builder().name("test2").email("test2@gmail.com").build();
+        userRepository.save(user1);
+        userRepository.findAll().forEach(System.out::println);
+
+        User user = userRepository.findById(1L).orElse(null);//없으면 null로 리천
+        user.setGender(Gender.FEMALE);
+        userRepository.save(user);
+//
+        userRepository.findAll().forEach(System.out::println);
+
+        logger.info("gender : " + userRepository.findRowRecord().get("gender"));
+    }
+
 }

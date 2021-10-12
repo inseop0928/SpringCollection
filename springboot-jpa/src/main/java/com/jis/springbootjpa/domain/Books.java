@@ -24,6 +24,10 @@ public class Books extends BaseTimeEntity{
 
     private String author;
 
+    @Transient//db에 반영 X
+    private String testStr;
+
+
     @Builder
     public Books(String title, String content, String author){
         this.title = title;
