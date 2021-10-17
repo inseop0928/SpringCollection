@@ -22,6 +22,18 @@ public class BookRequestDto {
         this.author = author;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
     public Books toEntity(){
         return Books.builder()
                 .title(title)
@@ -30,5 +42,12 @@ public class BookRequestDto {
                 .build();
     }
 
-
+    @Override
+    public String toString() {
+        return "BookRequestDto{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", author='" + author + '\'' +
+                '}';
+    }
 }
