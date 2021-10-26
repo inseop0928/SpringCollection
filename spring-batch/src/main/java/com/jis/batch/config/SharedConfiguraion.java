@@ -17,7 +17,7 @@ public class SharedConfiguraion {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
-    public SharedConfiguraion(JobBuilderFactory jobBuilderFactory,StepBuilderFactory stepBuilderFactory){
+    public SharedConfiguraion(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
     }
@@ -25,7 +25,7 @@ public class SharedConfiguraion {
     //jobexcution job내에 데이터 공유
     //stepExcution step내에 데이터 공유
     @Bean
-    public Job sharedJob(){
+    public Job sharedJob() {
         return jobBuilderFactory.get("sharedJob")
                 .incrementer(new RunIdIncrementer())
                 .start(sharedStep())
@@ -34,26 +34,26 @@ public class SharedConfiguraion {
     }
 
     @Bean
-    public Step sharedStep(){
+    public Step sharedStep() {
         return stepBuilderFactory.get("sharedStep")
                 .tasklet((contribution, chunkContext) -> {
                     StepExecution stepExecution = contribution.getStepExecution();
                     ExecutionContext executionContext = stepExecution.getExecutionContext();
-                    executionContext.putString("stepKey","step execution context");
+                    executionContext.putString("stepKey", "step execution context");
 
                     JobExecution jobExecution = stepExecution.getJobExecution();
                     JobInstance jobInstance = jobExecution.getJobInstance();
                     ExecutionContext jobExecutionContext = jobExecution.getExecutionContext();
-                    jobExecutionContext.putString("jobKey","job execution context");
+                    jobExecutionContext.putString("jobKey", "job execution context");
                     JobParameters jobParameters = jobExecution.getJobParameters();
-                    log.info("jobName : {} , stepName : {} , parameter : {}",jobInstance.getJobName(),stepExecution.getStepName(),jobParameters.getLong("run.id"));
+                    log.info("jobName : {} , stepName : {} , parameter : {}", jobInstance.getJobName(), stepExecution.getStepName(), jobParameters.getLong("run.id"));
 
                     return RepeatStatus.FINISHED;
                 })
                 .build();
     }
 
-    public Step sharedStep2(){
+    public Step sharedStep2() {
         return stepBuilderFactory.get("sharedStep2")
                 .tasklet((contribution, chunkContext) -> {
                     StepExecution stepExecution = contribution.getStepExecution();
@@ -63,8 +63,8 @@ public class SharedConfiguraion {
                     ExecutionContext executionContext1 = jobExecution.getExecutionContext();
 
                     log.info("jobKey : {}, stepKey :{}",
-                            executionContext.getString("stepKey","stepContext"),
-                            executionContext1.getString("jobKey","jobContext"));
+                            executionContext.getString("stepKey", "stepContext"),
+                            executionContext1.getString("jobKey", "jobContext"));
 
                     return RepeatStatus.FINISHED;
                 }).build();

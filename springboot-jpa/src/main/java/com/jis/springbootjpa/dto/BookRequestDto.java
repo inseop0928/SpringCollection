@@ -16,7 +16,7 @@ public class BookRequestDto {
     private String author;
 
     @Builder
-    public BookRequestDto(String title,String content,String author){
+    public BookRequestDto(String title, String content, String author) {
         this.title = title;
         this.content = content;
         this.author = author;
@@ -34,7 +34,7 @@ public class BookRequestDto {
         return author;
     }
 
-    public Books toEntity(){
+    public Books toEntity() {
         return Books.builder()
                 .title(title)
                 .content(content)

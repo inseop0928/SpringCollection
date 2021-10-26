@@ -12,23 +12,23 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class BookService {
     private final BookRepository bookRepository;
-    
+
     @Transactional
-    public Long save(BookRequestDto bookRequestDto){
-       return bookRepository.save(bookRequestDto.toEntity()).getId();
+    public Long save(BookRequestDto bookRequestDto) {
+        return bookRepository.save(bookRequestDto.toEntity()).getId();
     }
 
     @Transactional
-    public Long update(Long id, BookRequestDto bookRequestDto){
+    public Long update(Long id, BookRequestDto bookRequestDto) {
 
-        Books books = bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재 하지 않습니다. id="+id));
+        Books books = bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재 하지 않습니다. id=" + id));
 
         //jpa 영속성 컨텍스트 때문에 따로 업데이트를 날리지 앖는다.
-        books.update(bookRequestDto.getTitle(),bookRequestDto.getContent());
+        books.update(bookRequestDto.getTitle(), bookRequestDto.getContent());
         return id;
     }
 
-    public BookResponseDto findById(Long id){
+    public BookResponseDto findById(Long id) {
 
         Books books = bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
 

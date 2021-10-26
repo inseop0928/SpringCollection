@@ -29,47 +29,48 @@ public class ChunkConfiguration {
     JobBuilderFactory jobBuilderFactory;
     StepBuilderFactory stepBuilderFactory;
 
-    public ChunkConfiguration(JobBuilderFactory jobBuilderFactory,StepBuilderFactory stepBuilderFactory){
+    public ChunkConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
     }
 
     @Bean
-    public Job taskletJob(){
+    public Job taskletJob() {
         return jobBuilderFactory.get("taskletJob")
                 .incrementer(new RunIdIncrementer())
                 .start(taskletStep())
                 .next(chunkBaseStep(20))
                 .build();
     }
+
     @Bean
-    public Step taskletStep(){
+    public Step taskletStep() {
         return stepBuilderFactory.get("taskletStep")
                 .tasklet(tasklet())
                 .build();
     }
 
-    public Tasklet tasklet(){
+    public Tasklet tasklet() {
         List<String> items = getList();
         return (contribution, chunkContext) -> {
 
             StepExecution stepExecution = contribution.getStepExecution();
             JobParameters jobParameters = stepExecution.getJobParameters();
 
-            String strChunkSize = jobParameters.getString("chunkSize","10");
+            String strChunkSize = jobParameters.getString("chunkSize", "10");
 
             int chunkSize = 10;
-            if(strChunkSize != null &&  !"".equals(strChunkSize) ){
+            if (strChunkSize != null && !"".equals(strChunkSize)) {
                 chunkSize = Integer.parseInt(strChunkSize);
             }
 
             int fromIndex = stepExecution.getReadCount();
             int toIndex = fromIndex + chunkSize;
 
-            if(fromIndex >= items.size()){
+            if (fromIndex >= items.size()) {
                 return RepeatStatus.FINISHED;
             }
-            List<String> subList = items.subList(fromIndex,toIndex);
+            List<String> subList = items.subList(fromIndex, toIndex);
 
             log.info("items {} size", subList.size());
 
@@ -81,32 +82,32 @@ public class ChunkConfiguration {
 
     @Bean
     @JobScope
-    public Step chunkBaseStep(@Value("#{jobParameters[chunkSize]}") String chunkSize){
+    public Step chunkBaseStep(@Value("#{jobParameters[chunkSize]}") String chunkSize) {
 
         return stepBuilderFactory.get("chunkBaseStep")
-                .<String,String>chunk(10)
+                .<String, String>chunk(10)
                 .reader(itemReader())
                 .processor(itemProcessor())
                 .writer(itemWriter())
                 .build();
     }
 
-    private ItemReader<String> itemReader(){
+    private ItemReader<String> itemReader() {
         return new ListItemReader<>(getList());
     }
 
-    private ItemProcessor<String,String> itemProcessor(){
+    private ItemProcessor<String, String> itemProcessor() {
         return item -> item + ", Spring Batch";
     }
 
-    private ItemWriter<String> itemWriter(){
+    private ItemWriter<String> itemWriter() {
         return items -> log.info("chunk item size : {}", items.size());
     }
 
-    private List<String> getList(){
+    private List<String> getList() {
         List<String> items = new ArrayList<String>();
-        for(int i=0;i<10;i++){
-            items.add("hello"+i);
+        for (int i = 0; i < 10; i++) {
+            items.add("hello" + i);
         }
         return items;
     }

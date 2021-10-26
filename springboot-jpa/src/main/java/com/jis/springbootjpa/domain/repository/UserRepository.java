@@ -15,7 +15,7 @@ import java.util.Set;
 
 
 //JpaRepository(param1 : entity Type, param2 : pk타입 여기서는 Long)
-public interface UserRepository extends JpaRepository<User,Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     //jpa query-method를 참고하면 다양한 메소드가 존재
     //exist..By, count..By, delete..By remove..By도 존재
@@ -26,13 +26,17 @@ public interface UserRepository extends JpaRepository<User,Long> {
     User findByEmail(String mail);
 
     List<User> findFirstByName(String name);
+
     List<User> findTopByName(String name);
 
     List<User> findFirst2ByName(String name);
+
     List<User> findTop2ByName(String name);
 
     Set<User> findUserByNameIs(String name);
+
     Set<User> findUserByName(String name);
+
     Set<User> findUserByNameEquals(String name);
 
     //그냥 엔티티로 반환하면 오류 발생 list 타입으로 변경 필요
@@ -54,17 +58,18 @@ public interface UserRepository extends JpaRepository<User,Long> {
     List<User> findByNameIn(List<String> names);
 
     List<User> findTop1ByName(String name);
+
     //정렬 1 name으로 적용 방식
     List<User> findFirstByNameOrderByIdDescEmailAsc(String name);
-    
+
     //정렬 2 Sort 사용
     List<User> findFirstByName(String name, Sort sort);
 
     Page<User> findByName(String name, Pageable pageable);
 
-    
+
     //nativeQuery를 주제 되면 동일하게 실행
-    @Query(value = "select * from user limit 1" ,nativeQuery = true)
-    Map<String,Object> findRowRecord();
-    
+    @Query(value = "select * from user limit 1", nativeQuery = true)
+    Map<String, Object> findRowRecord();
+
 }

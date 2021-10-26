@@ -15,7 +15,7 @@ public class PageController {
     //@Controller로 해야 페이지를 찾을수 있음 @RestController은 안됨
     //String으로 지정하면 자동으로 리소스의 파일을 찾게된다.
     @RequestMapping("/main")
-    public String main(){
+    public String main() {
         return "main.html";
     }
 
@@ -23,7 +23,7 @@ public class PageController {
     //@RestController는 @ResponseBody 필요없음
     @ResponseBody
     @GetMapping("/user")
-    public UserDto user(){
+    public UserDto user() {
         UserDto userDto = new UserDto();
         userDto.setUserName("tester");
 

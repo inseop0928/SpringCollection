@@ -25,7 +25,7 @@ public class HelloControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void helloTest() throws Exception{
+    public void helloTest() throws Exception {
         String hello = "hello";
 
         mockMvc.perform(get("/hello"))
@@ -35,7 +35,7 @@ public class HelloControllerTest {
 
 
     @Test
-    public void dtoTest() throws Exception{
+    public void dtoTest() throws Exception {
         String name = "test";
         int amount = 1000;
 
@@ -44,13 +44,13 @@ public class HelloControllerTest {
             jsonPath : jsonm 응답값을 필드별로 검증할 수 있는 메소드,$를 기준으로 필드명 명시
             param : api 테스트 시 사용, 값은 String으로만 가능     
          */
-        mockMvc.perform(get("/hello/dto").param("name",name)
-                .param("amount",String.valueOf(amount)))
+        mockMvc.perform(get("/hello/dto").param("name", name)
+                .param("amount", String.valueOf(amount)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name",is(name)))
-                .andExpect(jsonPath("$.amount",is(amount)));
+                .andExpect(jsonPath("$.name", is(name)))
+                .andExpect(jsonPath("$.amount", is(amount)));
 
-        HelloResponseDto dto = new HelloResponseDto(name,amount);
+        HelloResponseDto dto = new HelloResponseDto(name, amount);
 
         //assertThat에 있는 값과 isEqualsTo 의 값을 비교해서 같을 때만 성공
         assertThat(dto.getName()).isEqualTo(name);

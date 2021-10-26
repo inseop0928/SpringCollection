@@ -15,21 +15,20 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping("/{id}")
-    public BookResponseDto findById(@PathVariable Long id){
+    public BookResponseDto findById(@PathVariable Long id) {
 
         return bookService.findById(id);
     }
 
     @PostMapping("/save")
-    public Long save(@RequestBody BookRequestDto bookRequestDto){
+    public Long save(@RequestBody BookRequestDto bookRequestDto) {
         return bookService.save(bookRequestDto);
     }
 
     @PutMapping("/update/{id}")
-    public Long update(@PathVariable Long id,@RequestBody BookRequestDto bookRequestDto){
-        return bookService.update(id,bookRequestDto);
+    public Long update(@PathVariable Long id, @RequestBody BookRequestDto bookRequestDto) {
+        return bookService.update(id, bookRequestDto);
     }
-
 
 
 }

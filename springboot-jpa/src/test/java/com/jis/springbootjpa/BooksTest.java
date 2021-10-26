@@ -39,12 +39,12 @@ public class BooksTest {
     BookRepository bookRepository;
 
     @After
-    public void cleanUp(){
+    public void cleanUp() {
         bookRepository.deleteAll();
     }
 
     @Test
-    public void load(){
+    public void load() {
 
         String title = "제목";
         String content = "본문";
@@ -62,7 +62,7 @@ public class BooksTest {
     }
 
     @Test
-    public void save(){
+    public void save() {
         String title = "제목";
         String content = "본문";
         String author = "저자";
@@ -73,16 +73,16 @@ public class BooksTest {
                 .author(author)
                 .build();
 
-        String url  = "http://localhost:"+port+"/api/book/save";
+        String url = "http://localhost:" + port + "/api/book/save";
 
-        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url,bookRequestDto,Long.class);
+        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, bookRequestDto, Long.class);
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
     }
 
     @Test
-    public void update(){
+    public void update() {
         String title = "초기제목";
         String content = "초기본문";
         String author = "초기저자";
@@ -102,10 +102,10 @@ public class BooksTest {
                 .content(updateContent)
                 .build();
 
-        String url  = "http://localhost:"+port+"/api/book/update/"+updateId;
+        String url = "http://localhost:" + port + "/api/book/update/" + updateId;
 
         HttpEntity<BookRequestDto> requestEntity = new HttpEntity<>(updateBookRequestDto);
-        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT,requestEntity,Long.class);
+        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);

@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
-
 //필드만 원하는경우 필드에 getter setter 설정
 
 @NoArgsConstructor
@@ -18,7 +17,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @Entity
-@Table(name = "user",indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+@Table(name = "user", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +35,7 @@ public class User {
     @Column(nullable = true, insertable = true)
     private LocalDateTime createdAt;
 
-   @Column(insertable = false)
+    @Column(insertable = false)
     private LocalDateTime updatedAt;
 
     public User(String name, String email) {

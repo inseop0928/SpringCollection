@@ -15,19 +15,19 @@ public class PageControllerTest {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Test
-    public void objectMapperTest(){
-        ObjectMapper objectMapper =  new ObjectMapper();
+    public void objectMapperTest() {
+        ObjectMapper objectMapper = new ObjectMapper();
 
         //(String title,String content,String author){
-        BookRequestDto bookRequestDto = new BookRequestDto("제목","내용","저자");
+        BookRequestDto bookRequestDto = new BookRequestDto("제목", "내용", "저자");
         try {
 
             String text = objectMapper.writeValueAsString(bookRequestDto);
-            logger.info(String.format("text : {}"),text);
+            logger.info(String.format("text : {}"), text);
 
-            BookRequestDto bookRequestDto1  = objectMapper.readValue(text,BookRequestDto.class);
+            BookRequestDto bookRequestDto1 = objectMapper.readValue(text, BookRequestDto.class);
 
-            logger.info(String.format("object : {}"),bookRequestDto1);
+            logger.info(String.format("object : {}"), bookRequestDto1);
 
 
         } catch (JsonProcessingException e) {

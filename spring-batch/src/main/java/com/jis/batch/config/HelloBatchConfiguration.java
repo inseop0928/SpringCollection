@@ -24,16 +24,16 @@ public class HelloBatchConfiguration {
     }
 
     @Bean
-    public Job helloJob(){
+    public Job helloJob() {
         return jobBuilderFactory.get("helloJob")
                 .incrementer(new RunIdIncrementer())//job 인스턴스 생성
                 .start(this.helloStep())
                 .build();
     }
-    
+
     //tasklet 실행기반으로 실행
     @Bean
-    public Step helloStep(){
+    public Step helloStep() {
         return stepBuilderFactory.get("helloStep")
                 .tasklet((contribution, chunkContext) -> {
                     log.info("hello batch step");
