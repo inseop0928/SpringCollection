@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Component//spring에서 관리
 public class LogAspect {
 
-
     //포인트컷 설정(어노테이션 설정없이 동작)
     @Pointcut("execution(* com.jis.springbootjpa..*.*(..))")
     private void cut() {
