@@ -37,8 +37,8 @@ public class ApiController {
     @Decode
     @PostMapping("/post/user")
     public ResponseEntity putUser(@Valid @RequestBody UserDto userDto, BindingResult bindingResult) {
-        //유효하지 않은 값이 들어오는 경우 @Valid 에러가 바로 발생하는 것이 아니라 bindingResult에 값이 들어옴
 
+        //유효하지 않은 값이 들어오는 경우 @Valid 에러가 바로 발생하는 것이 아니라 bindingResult에 값이 들어옴
         if(bindingResult.hasErrors()){
             StringBuilder sb = new StringBuilder();
             bindingResult.getAllErrors().forEach(objectError -> {
@@ -72,7 +72,7 @@ public class ApiController {
     }
 
     @GetMapping("/get/{id}")
-    public Long get(@PathVariable Long id, @RequestParam String name) {
+    public Long get(@PathVariable Long id, @RequestParam(required = false) String name) {
         System.out.println("id : " + id);
         System.out.println("name : " + name);
 
@@ -88,5 +88,10 @@ public class ApiController {
     @DeleteMapping("/delete/{userId}")
     public void delete(@RequestParam String account, @PathVariable(name = "userId") Long userId) {
         System.out.println(userId);
+    }
+
+    @GetMapping("/exception")
+    public void exceptionThrow() throws Exception {
+        throw new Exception("에러발생");
     }
 }
