@@ -7,8 +7,11 @@ import com.jis.springbootjpa.dto.PostRequestDTo;
 import com.jis.springbootjpa.dto.UserDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
@@ -30,9 +33,30 @@ public class ApiController {
 
 
     //ResponseEntity 사용하면 리턴상태코드를 지정할수 있다.
+    //@Valid 들어오는 값의 validation을 지정할 수 있다.
     @Decode
-    @PutMapping("/put/user")
-    public ResponseEntity<UserDto> putUser(@RequestBody UserDto userDto) {
+    @PostMapping("/post/user")
+    public ResponseEntity putUser(@Valid @RequestBody UserDto userDto, BindingResult bindingResult) {
+        //유효하지 않은 값이 들어오는 경우 @Valid 에러가 바로 발생하는 것이 아니라 bindingResult에 값이 들어옴
+
+        if(bindingResult.hasErrors()){
+            StringBuilder sb = new StringBuilder();
+            bindingResult.getAllErrors().forEach(objectError -> {
+                FieldError fieldError = (FieldError) objectError;
+                String message = objectError.getDefaultMessage();
+
+                System.out.println("field: " + fieldError.getField());
+                System.out.println(message);
+
+                sb.append("field : " +fieldError.getField());
+                sb.append("message : " +message);
+
+            });
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(sb.toString());
+        }
+
+        System.out.println(userDto);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
     }
 
