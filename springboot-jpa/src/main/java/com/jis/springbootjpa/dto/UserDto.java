@@ -85,8 +85,6 @@ public class UserDto {
         this.requestDate = requestDate;
     }
 
-
-
     public String getUserEmail() {
         return userEmail;
     }

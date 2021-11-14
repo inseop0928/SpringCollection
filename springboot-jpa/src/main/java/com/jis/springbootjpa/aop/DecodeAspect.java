@@ -20,6 +20,7 @@ public class DecodeAspect {
     private void cut() {
     }
 
+    //포인트컷 설정(어노테이션 설정 후 동작)
     @Pointcut("@annotation(com.jis.springbootjpa.aop.Decode)")
     private void decode(){
     }

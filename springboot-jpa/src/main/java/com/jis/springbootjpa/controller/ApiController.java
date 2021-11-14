@@ -1,6 +1,7 @@
 package com.jis.springbootjpa.controller;
 
 
+import com.jis.springbootjpa.aop.Auth;
 import com.jis.springbootjpa.aop.Decode;
 import com.jis.springbootjpa.aop.Timer;
 import com.jis.springbootjpa.dto.PostRequestDTo;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+@Auth
 public class ApiController {
 
     //text
@@ -30,7 +32,6 @@ public class ApiController {
     public UserDto json(@RequestBody UserDto userDto) {
         return userDto;
     }
-
 
     //ResponseEntity 사용하면 리턴상태코드를 지정할수 있다.
     //@Valid 들어오는 값의 validation을 지정할 수 있다.
