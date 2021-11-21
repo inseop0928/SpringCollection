@@ -6,6 +6,11 @@ import com.jis.springbootjpa.aop.Decode;
 import com.jis.springbootjpa.aop.Timer;
 import com.jis.springbootjpa.dto.PostRequestDTo;
 import com.jis.springbootjpa.dto.UserDto;
+import com.jis.springbootjpa.dto.UserRequest;
+import com.jis.springbootjpa.dto.UserResponse;
+import com.jis.springbootjpa.sevice.RestTemplateService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 @Auth
@@ -94,5 +100,23 @@ public class ApiController {
     @GetMapping("/exception")
     public void exceptionThrow() throws Exception {
         throw new Exception("에러발생");
+    }
+
+    @GetMapping("/getHelloUser/{userId}")
+    public UserResponse getHelloUser(@PathVariable int userId, @RequestParam String name,@RequestParam int age) {
+
+        log.info("userId {}",userId);
+        UserResponse userResponse = new UserResponse();
+        userResponse.setName(name);
+        userResponse.setAge(age);
+        return userResponse;
+    }
+
+    @PostMapping("/postHelloUser")
+    public UserResponse postHelloUser(@RequestBody UserRequest userRequest) {
+        UserResponse userResponse = new UserResponse();
+        userResponse.setName(userRequest.getName());
+        userResponse.setAge(userRequest.getAge());
+        return userResponse;
     }
 }
