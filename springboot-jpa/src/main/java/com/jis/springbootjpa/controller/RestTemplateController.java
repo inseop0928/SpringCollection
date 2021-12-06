@@ -4,6 +4,7 @@ import com.jis.springbootjpa.dto.UserResponse;
 import com.jis.springbootjpa.sevice.RestTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,8 +21,9 @@ public class RestTemplateController {
     }
 
 
-    @GetMapping("/postHello")
+    @PostMapping("/postHello")
     public UserResponse postHello(){
         return restTemplateService.postHello();
     }
+
 }

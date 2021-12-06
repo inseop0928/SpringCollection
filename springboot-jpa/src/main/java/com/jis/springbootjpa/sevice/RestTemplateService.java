@@ -5,6 +5,8 @@ import com.jis.springbootjpa.dto.UserRequest;
 import com.jis.springbootjpa.dto.UserResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -68,4 +70,31 @@ public class RestTemplateService {
         log.info("response body {}",responseEntity.getBody());
         return responseEntity.getBody();
     }
+
+    public UserResponse addHeaderHello(){
+        URI uri = UriComponentsBuilder
+                .fromUriString("http://localhost:8082")
+                .path("/api/postHelloUser")
+                .encode()
+                .build()
+                .toUri();
+
+        log.info(uri.toString());
+
+        UserRequest userRequest = new UserRequest();
+        userRequest.setName("JEONG");
+        userRequest.setAge(50);
+
+        RequestEntity<UserRequest> requestRequestEntity = RequestEntity
+                .post(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("x-authorzation","tokenValue")
+                .body(userRequest);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<UserResponse> responseEntity = restTemplate.exchange(requestRequestEntity, UserResponse.class);
+
+        return responseEntity.getBody();
+    }
+
 }

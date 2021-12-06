@@ -1,6 +1,6 @@
 package com.jis.batch.config;
 
-import lombok.Value;
+import io.micrometer.core.instrument.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
@@ -16,6 +16,7 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -39,7 +40,7 @@ public class ChunkConfiguration {
         return jobBuilderFactory.get("taskletJob")
                 .incrementer(new RunIdIncrementer())
                 .start(taskletStep())
-                .next(chunkBaseStep(20))
+                .next(chunkBaseStep("20"))
                 .build();
     }
 
@@ -85,7 +86,7 @@ public class ChunkConfiguration {
     public Step chunkBaseStep(@Value("#{jobParameters[chunkSize]}") String chunkSize) {
 
         return stepBuilderFactory.get("chunkBaseStep")
-                .<String, String>chunk(10)
+                .<String, String>chunk(StringUtils.isNotEmpty(chunkSize)?Integer.parseInt(chunkSize):10)
                 .reader(itemReader())
                 .processor(itemProcessor())
                 .writer(itemWriter())
