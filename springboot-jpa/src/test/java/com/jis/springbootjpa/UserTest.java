@@ -69,6 +69,16 @@ public class UserTest {
     }
 
     @Test
+    public void save(){
+        User user = new User();
+        user.setName("test");
+        user.setEmail("test@gmail.com");
+        userRepository.save(user);
+        userRepository.findAll().forEach(System.out::println);
+        //userRepository.findAll();
+    }
+
+    @Test
     public void delete() {
         //userRepository.delete(userRepository.findById(1L).orElseThrow(RuntimeException::new));
         // 해당 로직은 각각 select Delete를 수행하기 때문에 부하 발생

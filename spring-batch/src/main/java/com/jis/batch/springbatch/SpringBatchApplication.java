@@ -12,7 +12,7 @@ public class SpringBatchApplication {
         for (String str : args) {
             System.out.println("parameters " + str);
         }
-        SpringApplication.run(SpringBatchApplication.class, args);
+        SpringApplication.run(SpringBatchApplication.class, args[0]);
     }
 
 }
