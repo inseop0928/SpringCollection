@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @Entity
-@EntityListeners(value = UserEntityListener.class)
+@EntityListeners(value = {UserEntityListener.class})
 @Table(name = "user", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User{
     @Id

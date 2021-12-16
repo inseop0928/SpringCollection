@@ -2,6 +2,7 @@ package com.jis.springbootjpa;
 
 import com.jis.springbootjpa.domain.Gender;
 import com.jis.springbootjpa.domain.User;
+import com.jis.springbootjpa.domain.repository.UserHstRepository;
 import com.jis.springbootjpa.domain.repository.UserRepository;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
@@ -29,6 +30,9 @@ public class UserTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserHstRepository userHstRepository;
 
     @Test
     public void crud() {
@@ -75,6 +79,10 @@ public class UserTest {
         user.setEmail("test@gmail.com");
         userRepository.save(user);
         userRepository.findAll().forEach(System.out::println);
+
+        user.setEmail("test@naver.com");
+
+        userHstRepository.findAll().forEach(System.out::println);
         //userRepository.findAll();
     }
 

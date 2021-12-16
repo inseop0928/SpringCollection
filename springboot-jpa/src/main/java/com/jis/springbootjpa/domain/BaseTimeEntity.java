@@ -11,7 +11,7 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 @Data
-@MappedSuperclass//jpa entity 클래스들이 상속할 경우 필드들도 컴럼으로 인식
+@MappedSuperclass//컬럼들을 자동 하위 클래스에 상속해줌
 @EntityListeners(AuditingEntityListener.class)//Auditing 기능을 포함
 public abstract class BaseTimeEntity {
 
