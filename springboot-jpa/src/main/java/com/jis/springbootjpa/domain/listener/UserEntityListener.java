@@ -1,6 +1,8 @@
-package com.jis.springbootjpa.domain;
+package com.jis.springbootjpa.domain.listener;
 
 import com.jis.springbootjpa.common.support.BeanUtils;
+import com.jis.springbootjpa.domain.User;
+import com.jis.springbootjpa.domain.UserHstEntity;
 import com.jis.springbootjpa.domain.repository.UserHstRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

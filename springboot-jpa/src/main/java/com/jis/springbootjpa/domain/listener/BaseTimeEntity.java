@@ -1,4 +1,4 @@
-package com.jis.springbootjpa.domain;
+package com.jis.springbootjpa.domain.listener;
 
 import lombok.Data;
 import lombok.Getter;

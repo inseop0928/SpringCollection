@@ -1,6 +1,7 @@
 package com.jis.springbootjpa.domain;
 
 
+import com.jis.springbootjpa.domain.listener.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,6 @@ public class Books extends BaseTimeEntity {
 
     @Transient//db에 반영 X
     private String testStr;
-
 
     @Builder
     public Books(String title, String content, String author) {
