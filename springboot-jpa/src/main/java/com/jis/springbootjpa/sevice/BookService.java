@@ -1,6 +1,6 @@
 package com.jis.springbootjpa.sevice;
 
-import com.jis.springbootjpa.domain.repository.BookRepository;
+import com.jis.springbootjpa.domain.repository.BooksRepository;
 import com.jis.springbootjpa.domain.Books;
 import com.jis.springbootjpa.dto.BookRequestDto;
 import com.jis.springbootjpa.dto.BookResponseDto;
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor//autowired 대신 사용
 @Service
 public class BookService {
-    private final BookRepository bookRepository;
+    private final BooksRepository bookRepository;
 
     @Transactional
     public Long save(BookRequestDto bookRequestDto) {

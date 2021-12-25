@@ -1,6 +1,8 @@
 package com.jis.springbootjpa;
 
-import com.jis.springbootjpa.domain.repository.BookRepository;
+import com.jis.springbootjpa.domain.Book;
+import com.jis.springbootjpa.domain.BookReviewInfo;
+import com.jis.springbootjpa.domain.repository.BooksRepository;
 import com.jis.springbootjpa.domain.Books;
 import com.jis.springbootjpa.dto.BookRequestDto;
 import org.junit.After;
@@ -36,11 +38,11 @@ public class BooksTest {
     private TestRestTemplate restTemplate;
 
     @Autowired
-    BookRepository bookRepository;
+    BooksRepository booksRepository;
 
     @After
     public void cleanUp() {
-        bookRepository.deleteAll();
+        booksRepository.deleteAll();
     }
 
     @Test
@@ -49,9 +51,9 @@ public class BooksTest {
         String title = "제목";
         String content = "본문";
 
-        bookRepository.save(Books.builder().title(title).content(content).author("tester").build());
+        booksRepository.save(Books.builder().title(title).content(content).author("tester").build());
 
-        List<Books> booksList = bookRepository.findAll();
+        List<Books> booksList = booksRepository.findAll();
 
         logger.info("start");
         booksList.forEach(System.out::println);
@@ -87,7 +89,7 @@ public class BooksTest {
         String content = "초기본문";
         String author = "초기저자";
 
-        Books putData = bookRepository.save(Books.builder()
+        Books putData = booksRepository.save(Books.builder()
                 .title(title)
                 .content(content)
                 .author(author)
@@ -110,7 +112,7 @@ public class BooksTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
-        List<Books> booksList = bookRepository.findAll();
+        List<Books> booksList = booksRepository.findAll();
         assertThat(booksList.get(0).getTitle()).isEqualTo(updateTitle);
         assertThat(booksList.get(0).getContent()).isEqualTo(updateContent);
     }

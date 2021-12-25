@@ -4,9 +4,7 @@ import com.jis.springbootjpa.domain.listener.BaseTimeEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity
@@ -15,10 +13,11 @@ import javax.persistence.Id;
 public class BookReviewInfo extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long bookId;
+    @OneToOne(optional = false)
+    private Book book;
 
     private float avgReviewScore;
 
