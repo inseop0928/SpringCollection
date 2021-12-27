@@ -10,7 +10,9 @@ import org.springframework.data.domain.Auditable;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.PostPersist;
+import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -25,15 +27,24 @@ public class UserEntityListener {
             ((User) obj).setCreatedAt(LocalDateTime.now());
         }
     }
+    @PreUpdate
+    public void preUpdate(Object obj){
+        if(obj instanceof User){
+            System.out.println("prepersist");
+            ((User) obj).setUpdatedAt(LocalDateTime.now());
+        }
+    }
 
+    @PostUpdate
     @PostPersist
     public void postPersist(Object obj){
-        UserHstRepository userHstRepository = BeanUtils.getBean(UserHstRepository.class);
+        UserHstRepository userHstRepository = BeanUtils.getBean (UserHstRepository.class);
 
         if(obj instanceof User){
             User user = (User)obj;
             UserHstEntity userHstEntity = new UserHstEntity();
-            userHstEntity.setId(user.getId());
+            System.out.println("userId >> " + user.getId());
+            userHstEntity.setUserId(user.getId());
             userHstEntity.setName(user.getName());
             userHstEntity.setEmail(user.getEmail());
             userHstRepository.save(userHstEntity);

@@ -7,10 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -30,5 +27,9 @@ public class Book extends BaseTimeEntity {
     private Long authorId;
 
     private Long publisherId;
+
+    @OneToOne(mappedBy = "book")
+    @ToString.Exclude//순환참조가 걸리므로 적용
+    private BookReviewInfo bookReviewInfo;
 
 }

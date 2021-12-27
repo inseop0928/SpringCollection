@@ -29,9 +29,13 @@ public class UserHstEntity {
     @Enumerated(value = EnumType.STRING)//String으로 선언하지 않으면 index로 리턴하는데 순서 변경 시 값이 꼬일 수가 있다.
     private Gender gender;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     @CreatedDate//AuditingEntityListener 제공
     private LocalDateTime createdAt;
 
     @LastModifiedDate//AuditingEntityListener 제공
     private LocalDateTime updatedAt;
+
 }

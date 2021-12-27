@@ -2,6 +2,7 @@ package com.jis.springbootjpa;
 
 import com.jis.springbootjpa.domain.Gender;
 import com.jis.springbootjpa.domain.User;
+import com.jis.springbootjpa.domain.UserHstEntity;
 import com.jis.springbootjpa.domain.repository.UserHstRepository;
 import com.jis.springbootjpa.domain.repository.UserRepository;
 import org.assertj.core.util.Lists;
@@ -18,6 +19,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
@@ -202,6 +204,22 @@ public class UserTest {
         userRepository.findAll().forEach(System.out::println);
 
         logger.info("gender : " + userRepository.findRowRecord().get("gender"));
+    }
+
+    @Test
+    public void userTest(){
+        User user = new User();
+        user.setName("tester");
+        user.setEmail("test@test.com");
+        user.setGender(Gender.MALE);
+
+        userRepository.save(user);
+        user.setEmail("test1@test.com");
+        userRepository.save(user);
+
+        List<UserHstEntity> userHstEntities = Optional.of(userRepository.findByEmail("test1@test.com").getUserHstEntityList()).orElse(null);
+
+        userHstEntities.forEach(System.out::println);
     }
 
 }
