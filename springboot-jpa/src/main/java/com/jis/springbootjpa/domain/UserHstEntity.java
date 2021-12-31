@@ -4,6 +4,7 @@ package com.jis.springbootjpa.domain;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -29,8 +30,12 @@ public class UserHstEntity {
     @Enumerated(value = EnumType.STRING)//String으로 선언하지 않으면 index로 리턴하는데 순서 변경 시 값이 꼬일 수가 있다.
     private Gender gender;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", insertable = false , updatable = false)
     private Long userId;
+
+    @ManyToOne
+    @ToString.Exclude//순환참조 방지
+    private User user;
 
     @CreatedDate//AuditingEntityListener 제공
     private LocalDateTime createdAt;

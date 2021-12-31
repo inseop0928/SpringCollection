@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class Book extends BaseTimeEntity {
+public class Publisher extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,23 +24,7 @@ public class Book extends BaseTimeEntity {
 
     private String name;
 
-    private String category;
-
-    private Long authorId;
-
-    //private Long publisherId;
-
-    @OneToOne(mappedBy = "book")
-    @ToString.Exclude//순환참조가 걸리므로 적용
-    private BookReviewInfo bookReviewInfo;
-
     @OneToMany
-    @JoinColumn(name = "book_id")
-    @ToString.Exclude
-    private List<Review> reviewList = new ArrayList<Review>();
-
-    @ManyToOne
-    @ToString.Exclude
-    private Publisher publisher;
-
+    @JoinColumn(name = "publisher_id")
+    private List<Book> bookList = new ArrayList<Book>();
 }

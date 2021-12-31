@@ -47,6 +47,8 @@ public class UserEntityListener {
             userHstEntity.setUserId(user.getId());
             userHstEntity.setName(user.getName());
             userHstEntity.setEmail(user.getEmail());
+            userHstEntity.setUser(user);
+
             userHstRepository.save(userHstEntity);
         }
     }

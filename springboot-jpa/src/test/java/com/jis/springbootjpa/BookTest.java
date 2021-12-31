@@ -1,11 +1,10 @@
 package com.jis.springbootjpa;
 
-import com.jis.springbootjpa.domain.Book;
-import com.jis.springbootjpa.domain.BookReviewInfo;
-import com.jis.springbootjpa.domain.Books;
+import com.jis.springbootjpa.domain.*;
 import com.jis.springbootjpa.domain.repository.BookRepository;
 import com.jis.springbootjpa.domain.repository.BookReviewInfoRepository;
 import com.jis.springbootjpa.domain.repository.BooksRepository;
+import com.jis.springbootjpa.domain.repository.ReviewRepository;
 import com.jis.springbootjpa.dto.BookRequestDto;
 import org.junit.After;
 import org.junit.Test;
@@ -41,6 +40,9 @@ public class BookTest {
     BookRepository bookRepository;
 
     @Autowired
+    ReviewRepository reviewRepository;
+
+    @Autowired
     BookReviewInfoRepository bookReviewInfoRepository;
 
     @After
@@ -71,5 +73,23 @@ public class BookTest {
         Book result = bookReviewInfoRepository.findById(1L).orElseThrow(RuntimeException::new).getBook();
 
         System.out.println(">>>> " + result);
+    }
+
+
+    private void bookReview(){
+
+        User user = new User();
+        user.setName("tester");
+        user.setEmail("test@test.com");
+        user.setGender(Gender.MALE);
+
+        Review review = new Review();
+        review.setTitle("review title");
+        review.setContent("content");
+        review.setScore(4.1f);
+
+
+        reviewRepository.save(review);
+
     }
 }

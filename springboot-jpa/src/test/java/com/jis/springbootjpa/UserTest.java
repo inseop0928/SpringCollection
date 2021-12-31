@@ -220,6 +220,8 @@ public class UserTest {
         List<UserHstEntity> userHstEntities = Optional.of(userRepository.findByEmail("test1@test.com").getUserHstEntityList()).orElse(null);
 
         userHstEntities.forEach(System.out::println);
+
+        System.out.println(">>>>" + userHstRepository.findAll().get(0).getUser());
     }
 
 }

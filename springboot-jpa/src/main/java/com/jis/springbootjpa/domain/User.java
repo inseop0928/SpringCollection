@@ -3,10 +3,7 @@ package com.jis.springbootjpa.domain;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.jis.springbootjpa.domain.listener.UserEntityListener;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
@@ -47,15 +44,19 @@ public class User{
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id" ,insertable = false,updatable = false)//enitity의 조인 컬럼을 지정, 조회 전용으로 설정
+    @ToString.Exclude
     private List<UserHstEntity> userHstEntityList = new ArrayList<>();//초기 선언해야 null x, 조인컬럼 매핑
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    private List<Review> reviews = new ArrayList<>();
+
 
     public User(String name, String email) {
         this.name = name;
         this.email = email;
     }
-
-
-
 
     //조회 후 동작 preload는 없음
     @PostLoad
