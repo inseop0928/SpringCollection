@@ -43,4 +43,12 @@ public class Book extends BaseTimeEntity {
     @ToString.Exclude
     private Publisher publisher;
 
+    @ManyToMany
+    @ToString.Exclude//순환참조가 걸리므로 적용
+    private List<Author> authors = new ArrayList<>();
+
+    public void addAuthor(Author author){
+        this.authors.add(author);
+    }
+
 }
