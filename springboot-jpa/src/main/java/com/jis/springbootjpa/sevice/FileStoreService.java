@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -44,5 +46,14 @@ public class FileStoreService {
         }else{
             return null;
         }
+    }
+
+    public List<UploadFile> storeFile(List<MultipartFile> multipartFiless) throws IOException {
+
+        List<UploadFile> uploadFileList  = new ArrayList<UploadFile>();
+        for(MultipartFile multipartFile :multipartFiless){
+            uploadFileList.add(storeFile(multipartFile));
+        }
+       return uploadFileList;
     }
 }
