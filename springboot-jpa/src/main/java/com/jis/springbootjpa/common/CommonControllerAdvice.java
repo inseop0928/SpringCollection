@@ -30,10 +30,10 @@ public class CommonControllerAdvice {
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity exception(Exception e){
 
+        //추후 로그저장 구현
         System.out.println("--------------exceptionHandler-----------");
         System.out.println(e.getClass().getName());
         System.out.println(e.getLocalizedMessage());
-
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
 

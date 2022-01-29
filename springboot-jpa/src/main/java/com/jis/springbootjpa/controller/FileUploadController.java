@@ -131,7 +131,7 @@ public class FileUploadController {
     @GetMapping("/attach/{itemId}")
     public ResponseEntity<Resource> downloadAttach(@PathVariable Long id) throws MalformedURLException {
         //findById getById
-        FileItem item = fileItemRepository.getById(id);
+        FileItem item = fileItemRepository.findById(id);
         String storeFileName = item.getUploadFile().getFileKey();
         String realFileName = item.getUploadFile().getRealFileName();
 

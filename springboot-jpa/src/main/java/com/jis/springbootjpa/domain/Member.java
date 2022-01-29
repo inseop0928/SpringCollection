@@ -8,15 +8,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.List;
+import javax.validation.constraints.NotEmpty;
 
+@Entity
 @Data
-public class FileItem {
+@NoArgsConstructor
+public class Member {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String itemName;
-    private UploadFile uploadFile;
-    private List<UploadFile> uploadFiles;
+    @NotEmpty
+    private String loginId;
+
+    @NotEmpty
+    private String name;
+
+    @NotEmpty
+    private String password;
+
 
 }

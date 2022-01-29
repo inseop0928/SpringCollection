@@ -23,7 +23,7 @@ public class LogAspect {
 
         Object[] args = joinPoint.getArgs();
         for (Object obj : args) {
-            System.out.println("type : " + obj.getClass().getSimpleName());
+            //System.out.println("type : " + obj.getClass().getSimpleName());
             System.out.println("object " + obj);
         }
     }
