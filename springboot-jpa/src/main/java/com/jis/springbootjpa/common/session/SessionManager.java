@@ -29,12 +29,12 @@ public class SessionManager {
     }
 
     public Object getSession(HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
 
-        if(cookies == null){
+        if(request.getCookies() == null){
             return null;
         }
-        return Arrays.stream(cookies).filter(s->s.getName().equals("sessionId"))
+
+        return Arrays.stream(request.getCookies()).filter(s->s.getName().equals("sessionId"))
                 .findAny().orElse(null);
     }
 
