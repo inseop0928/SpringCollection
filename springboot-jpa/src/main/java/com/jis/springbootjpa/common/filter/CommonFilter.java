@@ -15,7 +15,7 @@ import java.util.logging.LogRecord;
 
 //필터단에서 요청을 변경 가능
 @Slf4j
-@WebFilter(urlPatterns = "/api/*")//스캔범위를 지정하려는 경우
+@WebFilter(urlPatterns = "/api/*")//스캔범위를 지정하려는 경우 webfilter로 설정하는 경우는 필터순서가 조절이 안 된다.
 //@Component//전역으로 지정하려는경우
 public class CommonFilter  implements Filter {
     @Override
