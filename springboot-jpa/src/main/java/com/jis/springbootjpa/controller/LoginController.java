@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +59,9 @@ public class LoginController {
     /* 쿠키를 만들어서 사용
         단점 : 보안에 취약
     */
-    public String login2(@Valid @ModelAttribute LoginDto loginDto, BindingResult bindingResult, HttpServletResponse httpServletResponse){
+    public String login2(@Valid @ModelAttribute LoginDto loginDto, BindingResult bindingResult
+            , @RequestParam(defaultValue = "/") String redirectURL//없으면 /
+            , HttpServletResponse httpServletResponse){
 
         if(bindingResult.hasErrors()){
             return "login/loginForm";
@@ -74,8 +77,9 @@ public class LoginController {
         //로그인 성공 시 쿠키생성
         Cookie cookie = new Cookie("memberId",loginMember.getLoginId());
         httpServletResponse.addCookie(cookie);
-
-        return "redirect:/";
+        
+        //리다이렉트 페이지로 이동
+        return "redirect:"+redirectURL;
     }
 
     
