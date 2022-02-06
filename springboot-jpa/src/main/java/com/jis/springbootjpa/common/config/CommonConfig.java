@@ -1,6 +1,7 @@
 package com.jis.springbootjpa.common.config;
 
 
+import com.jis.springbootjpa.aop.LoginArgumentResolver;
 import com.jis.springbootjpa.common.filter.LogFilter;
 import com.jis.springbootjpa.common.filter.LoginCheckFilter;
 import com.jis.springbootjpa.common.interceptor.LogInterceptor;
@@ -8,10 +9,12 @@ import com.jis.springbootjpa.common.interceptor.LoginCheckInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
+import java.util.List;
 
 @Configuration
 public class CommonConfig implements WebMvcConfigurer {
@@ -29,6 +32,11 @@ public class CommonConfig implements WebMvcConfigurer {
                 .order(2)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/","/member/add","/login","/logout","/css**","/*.ico","/error");
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new LoginArgumentResolver());
     }
 
     @Bean

@@ -1,6 +1,7 @@
 package com.jis.springbootjpa.controller;
 
 
+import com.jis.springbootjpa.aop.Login;
 import com.jis.springbootjpa.common.session.SessionManager;
 import com.jis.springbootjpa.constant.SessionConst;
 import com.jis.springbootjpa.domain.Member;
@@ -33,7 +34,7 @@ public class HomeController {
     * 스프링에서 제공하는 SessionAttribute를 사용용
    * */
     @GetMapping("/")
-    public String login(@SessionAttribute(name = SessionConst.LOGIN_MEMBER_KEY, required = false) Member loginMember, Model model){
+    public String login(@Login Member loginMember, Model model){
 
         if(loginMember == null){
             return "home";
@@ -43,23 +44,15 @@ public class HomeController {
         return "login/loginHome";
     }
 
-    //쿠키를 이용
-    //@GetMapping("/")
-    public String login2(@CookieValue(name="memberId",required = false) String memberId, Model model){
+    //Spring session을 이용
+    public String login2(@SessionAttribute(name = SessionConst.LOGIN_MEMBER_KEY, required = false) Member loginMember, Model model){
 
-        if(memberId == null){
+        if(loginMember == null){
             return "home";
-        }else{
-            Optional<Member> memberOptional = memberRepository.findByLoginId(memberId);
-            if(null == memberOptional.get()){
-                return "home";
-            }else{
-
-                model.addAttribute("member",memberOptional.get());
-
-                return "login/loginHome";
-            }
         }
+
+        model.addAttribute("member",loginMember);
+        return "login/loginHome";
     }
 
     //세션관리자를 만들어서 사용
@@ -76,10 +69,29 @@ public class HomeController {
         return "login/loginHome";
     }
 
+    //쿠키를 이용
+    //@GetMapping("/")
+    public String login4(@CookieValue(name="memberId",required = false) String memberId, Model model){
+
+        if(memberId == null){
+            return "home";
+        }else{
+            Optional<Member> memberOptional = memberRepository.findByLoginId(memberId);
+            if(null == memberOptional.get()){
+                return "home";
+            }else{
+
+                model.addAttribute("member",memberOptional.get());
+
+                return "login/loginHome";
+            }
+        }
+    }
+
     /*
         httpSession을 이용
      */
-    public String login4(HttpServletRequest request,  Model model){
+    public String login5(HttpServletRequest request,  Model model){
 
         HttpSession session = request.getSession(false);
 
