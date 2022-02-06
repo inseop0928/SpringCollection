@@ -3,14 +3,33 @@ package com.jis.springbootjpa.common.config;
 
 import com.jis.springbootjpa.common.filter.LogFilter;
 import com.jis.springbootjpa.common.filter.LoginCheckFilter;
+import com.jis.springbootjpa.common.interceptor.LogInterceptor;
+import com.jis.springbootjpa.common.interceptor.LoginCheckInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
 
 @Configuration
-public class FilterConfig {
+public class CommonConfig implements WebMvcConfigurer {
+
+    //WebMvcConfigurer에서 상속 받음
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LogInterceptor())
+                .order(1)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/css/**","/*.ico","/error");
+
+
+        registry.addInterceptor(new LoginCheckInterceptor())
+                .order(2)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/","/member/add","/login","/logout","/css**","/*.ico","/error");
+    }
 
     @Bean
     public FilterRegistrationBean loginFilterBean(){
