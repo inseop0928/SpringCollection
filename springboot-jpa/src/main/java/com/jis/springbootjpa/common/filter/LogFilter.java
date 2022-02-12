@@ -22,12 +22,13 @@ public class LogFilter implements Filter {
         String uuid = UUID.randomUUID().toString();
 
         try{
-            log.info("request {}",requestURI);
+            log.info("REQUEST [{}] [{}] [{}]", uuid, request.getDispatcherType(),requestURI);
             filterChain.doFilter(request,response);//다음필터를 호출 또는 없으면 서블릿을 호출
         }catch (Exception e){
+            log.info("EXCEPTION [{}] ",e.getMessage());
             throw e;
         }finally {
-            //log.info("RESPONSE {} {} ",uuid,requestURI);
+            log.info("RESPONSE [{}] [{}] [{}]", uuid, request.getDispatcherType(),requestURI);
         }
 
     }
