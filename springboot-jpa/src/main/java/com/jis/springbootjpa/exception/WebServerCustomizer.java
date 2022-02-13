@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class WebServerCustomizer implements WebServerFactoryCustomizer<ConfigurableWebServerFactory> {
 
+    /*에러페이지 반환설정
+    사용안하면 스프링 부트에서 기본으로 에러페이지 제공*/
     //RequestDispatcher 참고하면 에서 에러 시 request에서 반환하는 상수 정보가 있음
     
     @Override

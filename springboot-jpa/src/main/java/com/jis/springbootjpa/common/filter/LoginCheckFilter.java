@@ -13,7 +13,7 @@ import java.io.IOException;
 @Slf4j
 public class LoginCheckFilter implements Filter {
 
-    private String[] chkExceptList = {"/","/member/add","/login","/logout","/css/*"};
+    private String[] chkExceptList = {"/","/member/add","/login","/logout","/error-page/*","/error/*","/css/*"};
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

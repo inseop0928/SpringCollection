@@ -32,7 +32,7 @@ public class CommonConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(2)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/","/member/add","/login","/logout","/css**","/*.ico","/error","/error-page/**");
+                .excludePathPatterns("/","/member/add","/login","/logout","/css**","/*.ico","/error","/error/**","/error-page/**");
     }
 
     @Override
