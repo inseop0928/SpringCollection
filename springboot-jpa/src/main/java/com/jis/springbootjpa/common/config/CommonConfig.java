@@ -6,10 +6,13 @@ import com.jis.springbootjpa.common.filter.LogFilter;
 import com.jis.springbootjpa.common.filter.LoginCheckFilter;
 import com.jis.springbootjpa.common.interceptor.LogInterceptor;
 import com.jis.springbootjpa.common.interceptor.LoginCheckInterceptor;
+import com.jis.springbootjpa.common.resolver.MyHandlerExceptionResolver;
+import com.jis.springbootjpa.common.resolver.UserHandlerExceptionResolver;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -33,6 +36,12 @@ public class CommonConfig implements WebMvcConfigurer {
                 .order(2)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/","/member/add","/login","/logout","/css**","/*.ico","/error","/error/**","/error-page/**");
+    }
+
+    @Override
+    public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
+        resolvers.add(new MyHandlerExceptionResolver());
+        resolvers.add(new UserHandlerExceptionResolver());
     }
 
     @Override

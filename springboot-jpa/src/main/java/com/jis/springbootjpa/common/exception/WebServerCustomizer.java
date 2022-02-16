@@ -1,4 +1,4 @@
-package com.jis.springbootjpa.exception;
+package com.jis.springbootjpa.common.exception;
 
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
