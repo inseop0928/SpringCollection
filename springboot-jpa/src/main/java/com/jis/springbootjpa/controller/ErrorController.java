@@ -1,12 +1,15 @@
 package com.jis.springbootjpa.controller;
 
 
+import com.jis.springbootjpa.common.exception.BadRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,7 +67,6 @@ public class ErrorController {
         return "/error/500";
     }
 
-    
     //클라이언트 applicationType Json인 경우
     //같은 매핑주소가 있는경우 더 우선 순위
     @RequestMapping(value="/error-page/500" ,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -81,8 +83,5 @@ public class ErrorController {
 
         return new ResponseEntity<>(result, HttpStatus.valueOf(statusCode));
 
-
     }
-
-
 }
