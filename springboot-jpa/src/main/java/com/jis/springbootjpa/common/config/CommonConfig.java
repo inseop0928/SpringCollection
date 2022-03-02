@@ -8,9 +8,14 @@ import com.jis.springbootjpa.common.interceptor.LogInterceptor;
 import com.jis.springbootjpa.common.interceptor.LoginCheckInterceptor;
 import com.jis.springbootjpa.common.resolver.MyHandlerExceptionResolver;
 import com.jis.springbootjpa.common.resolver.UserHandlerExceptionResolver;
+import com.jis.springbootjpa.converter.IpPortToStringConverter;
+import com.jis.springbootjpa.converter.StringToIntegerConverter;
+import com.jis.springbootjpa.converter.StringToIpPortConverter;
+import com.jis.springbootjpa.formatter.NumberFormatter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -69,5 +74,14 @@ public class CommonConfig implements WebMvcConfigurer {
         filterFilterRegistrationBean.addUrlPatterns("/*");
 
         return filterFilterRegistrationBean;
+    }
+
+    //converter,fomatter  등록
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new StringToIpPortConverter());
+        registry.addConverter(new IpPortToStringConverter());
+        registry.addFormatter(new NumberFormatter());//1000->1,000 or 1,000->1000
+
     }
 }
