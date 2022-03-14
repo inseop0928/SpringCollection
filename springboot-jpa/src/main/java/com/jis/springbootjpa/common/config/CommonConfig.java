@@ -40,7 +40,7 @@ public class CommonConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(2)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/","/member/add","/login","/logout","/css**","/*.ico","/error","/error/**","/error-page/**");
+                .excludePathPatterns("/","/member/add","/login","/logout","/css**","/*.ico","/error","/error/**","/error-page/**","/view/**");
     }
 
     @Override
@@ -66,7 +66,7 @@ public class CommonConfig implements WebMvcConfigurer {
         return filterFilterRegistrationBean;
     }
 
-    @Bean
+    //@Bean
     public FilterRegistrationBean loginCheckFilterBean(){
         FilterRegistrationBean<Filter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
         filterFilterRegistrationBean.setFilter(new LoginCheckFilter());
