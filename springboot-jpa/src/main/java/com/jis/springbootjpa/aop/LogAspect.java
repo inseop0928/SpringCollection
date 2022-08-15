@@ -12,8 +12,7 @@ public class LogAspect {
 
     //포인트컷 설정(어노테이션 설정없이 동작)
     @Pointcut("execution(* com.jis.springbootjpa..*.*(..))")
-    private void cut() {
-    }
+    private void cut() {}//pointcut signature
 
     @Before("cut()")
     public void before(JoinPoint joinPoint) {
