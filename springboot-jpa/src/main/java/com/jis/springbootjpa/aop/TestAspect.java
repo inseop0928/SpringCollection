@@ -2,6 +2,7 @@ package com.jis.springbootjpa.aop;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
@@ -36,22 +37,22 @@ public class TestAspect {
     }
 
     @Before("com.jis.springbootjpa.pointcut.CommonPointCut.allService()")
-    public void bfDoTransaction(ProceedingJoinPoint joinPoint){
+    public void bfDoTransaction(JoinPoint joinPoint){
         log.info("before {}",joinPoint.getSignature());
     }
 
     @AfterReturning(value = "com.jis.springbootjpa.pointcut.CommonPointCut.allService()",returning = "result")
-    public void rtnDoTransaction(ProceedingJoinPoint joinPoint,Object result){//returning과 맞춰줘야한다.
+    public void rtnDoTransaction(JoinPoint joinPoint,Object result){//returning과 맞춰줘야한다.
         log.info("before {}",joinPoint.getSignature());
     }
 
     @AfterThrowing(value = "com.jis.springbootjpa.pointcut.CommonPointCut.allService()",throwing = "ex")
-    public void exDoTransaction(ProceedingJoinPoint joinPoint,Exception ex){//returning과 맞춰줘야한다.
+    public void exDoTransaction(JoinPoint joinPoint,Exception ex){//returning과 맞춰줘야한다.
         log.info("before {}",joinPoint.getSignature());
     }
 
     @After("com.jis.springbootjpa.pointcut.CommonPointCut.allService()")
-    public void afDoTransaction(ProceedingJoinPoint joinPoint){
+    public void afDoTransaction(JoinPoint joinPoint){
         log.info("after {}",joinPoint.getSignature());
     }
 

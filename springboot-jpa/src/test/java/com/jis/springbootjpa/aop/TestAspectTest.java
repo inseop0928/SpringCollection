@@ -1,5 +1,6 @@
 package com.jis.springbootjpa.aop;
 
+import com.jis.springbootjpa.controller.ApiController;
 import com.jis.springbootjpa.controller.HomeController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,10 @@ public class TestAspectTest {
 
     @Autowired
     HomeController homeController;
+
+    @Autowired
+    ApiController apiController;
+
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
