@@ -4,6 +4,7 @@ package com.jis.springbootjpa.controller;
 import com.jis.springbootjpa.aop.Auth;
 import com.jis.springbootjpa.aop.Decode;
 import com.jis.springbootjpa.aop.Timer;
+import com.jis.springbootjpa.aop.annotation.MethodAop;
 import com.jis.springbootjpa.dto.PostRequestDTo;
 import com.jis.springbootjpa.dto.UserDto;
 import com.jis.springbootjpa.dto.UserRequest;
@@ -28,8 +29,9 @@ public class ApiController {
 
     //text
     // content-type에 text/plan이라고 나옴
+    @MethodAop("apiTest")
     @GetMapping("/test")
-    public String text(@RequestParam String id) {
+    public String test(@RequestParam String id) {
         return id;
     }
 
