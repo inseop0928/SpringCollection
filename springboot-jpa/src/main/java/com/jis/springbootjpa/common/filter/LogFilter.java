@@ -17,7 +17,7 @@ public class LogFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletRequest httpRequest = (HttpServletRequest) request;//ServletRequest은 httpServletRequest에 부모 클래스로 http가 아닌경우까지 고려해서 만듬 따라서 기능이 많기 때문에 다운캐스팅
         String requestURI = httpRequest.getRequestURI();
         String uuid = UUID.randomUUID().toString();
 

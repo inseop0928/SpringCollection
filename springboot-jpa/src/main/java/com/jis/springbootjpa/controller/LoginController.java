@@ -75,6 +75,7 @@ public class LoginController {
         }
 
         //로그인 성공 시 쿠키생성
+        //쿠키에 시간 정보를 주지 않으면 세션 쿠키(브라우저 종료시 종료)
         Cookie cookie = new Cookie("memberId",loginMember.getLoginId());
         httpServletResponse.addCookie(cookie);
         

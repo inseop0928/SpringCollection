@@ -8,8 +8,9 @@
     <h1>부분 포함</h1>
     <h2>부분 포함 insert</h2>
     <!--fragment에 copy를 가져옴 -->
+    <!-- insert div 뒤에 추가-->
     <div th:insert="~{template/fragment/footer :: copy}"></div>
-    <h2>부분 포함 replace</h2>
+    <h2>부분 포함 replace</h2><!-- div부터 replace-->
     <div th:replace="~{template/fragment/footer :: copy}"></div>
     <h2>부분 포함 단순 표현식</h2>
         <div th:replace="template/fragment/footer :: copy"></div>
